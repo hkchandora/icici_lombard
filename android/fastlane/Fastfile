@@ -12,27 +12,34 @@
 
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
+fastlane_require 'fastlane-plugin-firebase_app_distribution'
 
 default_platform(:android)
 
 platform :android do
-  desc "Runs all the tests"
-  lane :test do
-    gradle(task: "test")
-  end
+    desc "Firebase CRUD"
+    gradle(
+        task: 'assemble',
+        flags: "-Ptarget=lib/main.dart",
+        build_type: 'Release',
+        properties: {
+            "android.injected.signing.store.file” => ENV[‘PWD’] + “/app/upload-keystore.jks",
+            "android.injected.signing.store.password” => “uploadPassword",
+            "android.injected.signing.key.alias” => “upload",
+            "android.injected.signing.key.password” => “uploadPassword"
+        }
+    )
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
-    gradle(task: "clean assembleRelease")
-    crashlytics
-  
-    # sh "your_script.sh"
-    # You can also use other beta testing services here
-  end
-
-  desc "Deploy a new version to the Google Play"
   lane :deploy do
-    gradle(task: "clean assembleRelease")
-    upload_to_play_store
+      sh("flutter clean")
+      sh("flutter pub get")
+      sh("flutter build apk --release")
+      firebase_app_distribution(
+        app: "1:740980194646:android:36d8081903ba9cb50faaf7",
+        groups: "Test",
+        release_notes: "Add New Feature",
+        firebase_cil_path: "/usr/local/bin/firebase",
+        apk_path: "../build/app/outputs/flutter-apk/app-release.apk"
+     )
   end
 end
