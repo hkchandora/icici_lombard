@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "740980194646",
+    "project_id": "icici-lombard-2a94c",
+    "storage_bucket": "icici-lombard-2a94c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740980194646:android:36d8081903ba9cb50faaf7",
+        "android_client_info": {
+          "package_name": "com.example.icici"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWOa2Ix9Y1J7uecir8bHp2sTsYHmF9q7E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
