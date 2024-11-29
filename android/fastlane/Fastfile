@@ -11,18 +11,15 @@ platform :android do
      lane :beta do
          gradle(task: "clean assembleRelease")
          crashlytics
-
-     # sh "your_script.sh"
-     # You can also use other beta testing services here
      end
 
-    # Dev Release Lane
-     desc "My awesome app"
+    # Firebase Distribution
+     desc "Firebase CRUD app"
      lane :distributeFirebase do
          sh("flutter clean")
          sh("flutter pub get")
          sh("flutter build apk --release")
-         # build_android_app is a built-in fastlane action.
+
          firebase_app_distribution(
             app: "1:740980194646:android:36d8081903ba9cb50faaf7",
             groups: "test",
