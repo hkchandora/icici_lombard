@@ -1,0 +1,22 @@
+default_platform(:ios)
+
+platform :ios do
+  desc "Description of what the lane does"
+  lane :custom_lane do
+    # add actions here: https://docs.fastlane.tools/actions
+  end
+
+  desc "Build and distribute iOS app to Firebase"
+  lane :distribute_firebase do
+      # Build the IPA
+      gym(scheme: "Runner", export_method: "ad-hoc") # Replace 'YourAppScheme' with your Xcode scheme name
+      # Distribute the IPA to Firebase
+      firebase_app_distribution(
+        app: "1:740980194646:ios:d1cbe23ae5eac15f0faaf7", # Replace with your Firebase iOS App ID
+        ipa_path: "./build/YourAppScheme.ipa", # Replace with the path to your .ipa file
+        firebase_cli_token: "your_firebase_token", # Replace with your Firebase token
+        release_notes: "New release for testing",
+        testers: "chandorahimashu@gmail.com, himanshu.kumawat@atriina.com" # Replace with tester emails
+      )
+  end
+end
